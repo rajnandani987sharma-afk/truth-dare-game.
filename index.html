@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Truth Dare Game</title>
+<title>Spin Bottle Truth Dare</title>
 
 <style>
+
 body{
+margin:0;
 font-family:Arial;
-text-align:center;
 background:linear-gradient(45deg,#ff6ec4,#7873f5);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
 color:white;
-padding-top:40px;
+text-align:center;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+#bottle{
+font-size:140px;
+cursor:pointer;
+transition: transform 2s ease-out;
 }
 
 button{
-padding:12px 20px;
+padding:12px 25px;
 font-size:18px;
 margin:10px;
 border:none;
@@ -21,41 +37,41 @@ border-radius:10px;
 cursor:pointer;
 }
 
-#truth{background:#00c853;color:white;}
-#dare{background:#ff1744;color:white;}
+#truth{
+background:#00c853;
+color:white;
+}
 
-#bottle{
-font-size:80px;
-display:inline-block;
-transition: transform 2s;
+#dare{
+background:#ff1744;
+color:white;
 }
 
 #result{
-margin-top:25px;
-font-size:22px;
+margin-top:20px;
+font-size:20px;
 background:white;
 color:black;
 padding:20px;
 border-radius:10px;
 width:80%;
-margin:auto;
+max-width:400px;
 }
-</style>
 
+</style>
 </head>
 
 <body>
 
-<h1>🎮 Truth Dare Game</h1>
+<h1>🎮 Spin Bottle Truth Dare</h1>
 
-<div id="bottle">🍾</div>
-<br>
+<div id="bottle" onclick="spinBottle()">🍾</div>
+<p>Touch the bottle to spin</p>
 
-<button onclick="spinBottle()">Spin Bottle</button>
-<br>
-
+<div>
 <button id="truth" onclick="getTruth()">Truth</button>
 <button id="dare" onclick="getDare()">Dare</button>
+</div>
 
 <div id="result">Spin the bottle first</div>
 
@@ -127,21 +143,41 @@ let dares=[
 "Talk in funny voice for 1 minute"
 ];
 
+let spinning=false;
+
 function spinBottle(){
+
+if(spinning) return;
+
+spinning=true;
+
 let bottle=document.getElementById("bottle");
-let randomDeg=3600 + Math.floor(Math.random()*360);
-bottle.style.transform="rotate("+randomDeg+"deg)";
+
+let deg=3600+Math.floor(Math.random()*360);
+
+bottle.style.transform="rotate("+deg+"deg)";
+
+setTimeout(()=>{
+spinning=false;
 document.getElementById("result").innerText="Bottle stopped! Choose Truth or Dare.";
+},2000);
+
 }
 
 function getTruth(){
+
 let random=Math.floor(Math.random()*truths.length);
+
 document.getElementById("result").innerText=truths[random];
+
 }
 
 function getDare(){
+
 let random=Math.floor(Math.random()*dares.length);
+
 document.getElementById("result").innerText=dares[random];
+
 }
 
 </script>
