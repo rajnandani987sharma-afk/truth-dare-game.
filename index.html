@@ -23,9 +23,9 @@ margin-bottom:20px;
 }
 
 #bottle{
-font-size:140px;
+width:200px;
+transition: transform 3s ease-out;
 cursor:pointer;
-transition: transform 2s ease-out;
 }
 
 button{
@@ -37,15 +37,8 @@ border-radius:10px;
 cursor:pointer;
 }
 
-#truth{
-background:#00c853;
-color:white;
-}
-
-#dare{
-background:#ff1744;
-color:white;
-}
+#truth{background:#00c853;color:white;}
+#dare{background:#ff1744;color:white;}
 
 #result{
 margin-top:20px;
@@ -65,7 +58,8 @@ max-width:400px;
 
 <h1>🎮 Spin Bottle Truth Dare</h1>
 
-<div id="bottle" onclick="spinBottle()">🍾</div>
+<img id="bottle" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Green_bottle_icon.png">
+
 <p>Touch the bottle to spin</p>
 
 <div>
@@ -76,6 +70,8 @@ max-width:400px;
 <div id="result">Spin the bottle first</div>
 
 <script>
+
+let bottle=document.getElementById("bottle");
 
 let truths=[
 "What is your biggest fear?",
@@ -143,25 +139,15 @@ let dares=[
 "Talk in funny voice for 1 minute"
 ];
 
-let spinning=false;
+bottle.addEventListener("click",spinBottle);
 
 function spinBottle(){
 
-if(spinning) return;
+let randomDeg = Math.floor(3000 + Math.random()*2000);
 
-spinning=true;
+bottle.style.transform="rotate("+randomDeg+"deg)";
 
-let bottle=document.getElementById("bottle");
-
-let deg=3600+Math.floor(Math.random()*360);
-
-bottle.style.transform="rotate("+deg+"deg)";
-
-setTimeout(()=>{
-spinning=false;
-document.getElementById("result").innerText="Bottle stopped! Choose Truth or Dare.";
-},2000);
-
+document.getElementById("result").innerText="Bottle spinning...";
 }
 
 function getTruth(){
