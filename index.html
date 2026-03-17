@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Spin Bottle Truth Dare</title>
+<title>Spin The Bottle</title>
 
 <style>
 
@@ -11,21 +11,16 @@ font-family:Arial;
 background:linear-gradient(45deg,#ff6ec4,#7873f5);
 display:flex;
 flex-direction:column;
-justify-content:center;
 align-items:center;
+justify-content:center;
 height:100vh;
-color:white;
 text-align:center;
-}
-
-h1{
-margin-bottom:20px;
+color:white;
 }
 
 #bottle{
-width:200px;
+font-size:40vw;
 transition: transform 3s ease-out;
-cursor:pointer;
 }
 
 button{
@@ -37,47 +32,60 @@ border-radius:10px;
 cursor:pointer;
 }
 
-#truth{background:#00c853;color:white;}
-#dare{background:#ff1744;color:white;}
+#spin{
+background:#ffd600;
+}
+
+#truth{
+background:#00c853;
+color:white;
+}
+
+#dare{
+background:#ff1744;
+color:white;
+}
 
 #result{
 margin-top:20px;
-font-size:20px;
 background:white;
 color:black;
 padding:20px;
 border-radius:10px;
 width:80%;
 max-width:400px;
+font-size:20px;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<h1>🎮 Spin Bottle Truth Dare</h1>
+<h1>🍾 Spin The Bottle</h1>
 
-<img id="bottle" src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Green_bottle_icon.png">
+<div id="bottle">🍾</div>
 
-<p>Touch the bottle to spin</p>
+<button id="spin" onclick="spinBottle()">Spin The Bottle</button>
 
 <div>
 <button id="truth" onclick="getTruth()">Truth</button>
 <button id="dare" onclick="getDare()">Dare</button>
 </div>
 
-<div id="result">Spin the bottle first</div>
+<div id="result">Press Spin to start</div>
 
 <script>
 
 let bottle=document.getElementById("bottle");
+let currentRotation=0;
 
 let truths=[
 "What is your biggest fear?",
 "Who was your first crush?",
 "Have you ever lied to your best friend?",
-"What is your secret dream?"
+"What is your secret dream?",
 "When did you know that you were attracted to me?",
 "Where's the weirdest/most adventurous place you've had sex?",
 "Do you have any secret fantasies?",
@@ -90,20 +98,20 @@ let truths=[
 "Kya koi aisa gaana hai jo tum sunte ho aur tumhe meri yaad ekdum romantic tarike se aati hai?",
 "Humari pehli date par, kya tumne mujhe impress karne ke liye kuch extra plan kiya tha?",
 "Meri body ka wo kaunsa part hai jise tum bina thake ghanto tak dekh sakte ho?",
-"Agar hum kisi sunsaan island par akele ho, toh tum mere saath pehla ghanta kaise bitaoge?",
-"Kya koi aisi fantasy hai jo tumne mujhe kabhi batayi nahi, par mere saath poori karni hai?",
-"Jab main tumhare kaan mein dheere se kuch bolta/bolti hoon, toh tumhe kaisa feel hota hai?",
-"Agar tumhe mujhe sirf ek baar touch karke batana ho ki tum mujhse kitna pyaar karte ho, toh tum kahan touch karoge?",
+"Agar hum kisi sunsaan island par akele ho toh tum mere saath pehla ghanta kaise bitaoge?",
+"Kya koi aisi fantasy hai jo tumne mujhe kabhi batayi nahi par mere saath poori karni hai?",
+"Jab main tumhare kaan mein dheere se kuch bolta/bolti hoon toh tumhe kaisa feel hota hai?",
+"Agar tumhe mujhe sirf ek baar touch karke batana ho ki tum mujhse kitna pyaar karte ho toh tum kahan touch karoge?",
 "Meri kaunsi dress ya outfit dekh kar tumhara dil sabse zyada zor se dhadakta hai?",
 "Kya tumne kabhi kaam karte waqt mere baare mein koi naughty khayal socha hai?",
 "Tumhe mere baare mein sabse zyada addictive kya lagta hai?",
-"Agar tumhe mujhe abhi isi waqt kiss karna ho, toh tum kahan se shuru karoge?",
-"Tumhare hisaab se humari chemistry 1 se 10 ke beech mein kahan hai? (Be honest!)",
+"Agar tumhe mujhe abhi isi waqt kiss karna ho toh tum kahan se shuru karoge?",
+"Tumhare hisaab se humari chemistry 1 se 10 ke beech mein kahan hai? Be honest!",
 "Hamari sabse dreamy date kaisi honi chahiye jo humne abhi tak nahi ki?",
 "Agar main tumhe ek din ke liye kidnap kar loon, toh tum kya chahoge main tumhare saath kya karoon?",
 "Kya tumne kabhi mere purane messages padhkar akele mein smile kiya hai?",
-"Wo kaunsi ek cheez hai jo main karta/karti hoon aur tum ekdum pighal jaate ho?",
-"Agar hume dobara milne ka mauka mile (ek anjaan ki tarah), toh tum mujhe kaise approach karoge?",
+"Wo kaunsi ek cheez hai jo main karta karti hoon aur tum ekdum pighal jaate ho?",
+"Agar hume dobara milne ka mauka mile ek anjaan ki tarah toh tum mujhe kaise approach karoge?",
 ];
 
 let dares=[
@@ -118,7 +126,7 @@ let dares=[
 "Let me do your makeup while blindfolded",
 "french kiss",
 " hide a chocolate in your clothes and let me find it",
-"let me draw you naked"
+"let me draw you naked",
 "remove 3 clothes",
 "Swap outfits with me",
 "Say yes to everything for the next hour",
@@ -126,7 +134,7 @@ let dares=[
 "Call someone I choose and sing happy birthday to them",
 "Have a shower with your clothes on",
 "Send me a flirty message using only emojis",
-"Send the weirdest GIF you can find to the 15th person in your contact list"
+"Send the weirdest GIF you can find to the 15th person in your contact list",
 "Sing a song loudly",
 "Do 10 jumping jacks",
 "give me sensual back massage for five minutes",
@@ -139,31 +147,29 @@ let dares=[
 "Talk in funny voice for 1 minute"
 ];
 
-bottle.addEventListener("click",spinBottle);
-
 function spinBottle(){
 
-let randomDeg = Math.floor(3000 + Math.random()*2000);
+let extraRotation = 3600 + Math.floor(Math.random()*720);
 
-bottle.style.transform="rotate("+randomDeg+"deg)";
+currentRotation += extraRotation;
+
+bottle.style.transform="rotate("+currentRotation+"deg)";
 
 document.getElementById("result").innerText="Bottle spinning...";
 }
 
 function getTruth(){
 
-let random=Math.floor(Math.random()*truths.length);
+let r=Math.floor(Math.random()*truths.length);
 
-document.getElementById("result").innerText=truths[random];
-
+document.getElementById("result").innerText=truths[r];
 }
 
 function getDare(){
 
-let random=Math.floor(Math.random()*dares.length);
+let r=Math.floor(Math.random()*dares.length);
 
-document.getElementById("result").innerText=dares[random];
-
+document.getElementById("result").innerText=dares[r];
 }
 
 </script>
