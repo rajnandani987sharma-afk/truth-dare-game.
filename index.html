@@ -2,17 +2,18 @@
 <html>
 <head>
 <title>Truth Dare Game</title>
+
 <style>
 body{
-font-family: Arial;
+font-family:Arial;
 text-align:center;
 background:linear-gradient(45deg,#ff6ec4,#7873f5);
 color:white;
-padding-top:50px;
+padding-top:40px;
 }
 
 button{
-padding:15px 25px;
+padding:12px 20px;
 font-size:18px;
 margin:10px;
 border:none;
@@ -23,46 +24,63 @@ cursor:pointer;
 #truth{background:#00c853;color:white;}
 #dare{background:#ff1744;color:white;}
 
+#bottle{
+font-size:80px;
+display:inline-block;
+transition: transform 2s;
+}
+
 #result{
-margin-top:30px;
+margin-top:25px;
 font-size:22px;
 background:white;
 color:black;
 padding:20px;
 border-radius:10px;
 width:80%;
-margin-left:auto;
-margin-right:auto;
+margin:auto;
 }
 </style>
+
 </head>
 
 <body>
 
 <h1>🎮 Truth Dare Game</h1>
 
+<div id="bottle">🍾</div>
+<br>
+
+<button onclick="spinBottle()">Spin Bottle</button>
+<br>
+
 <button id="truth" onclick="getTruth()">Truth</button>
 <button id="dare" onclick="getDare()">Dare</button>
 
-<div id="result">Click Truth or Dare</div>
+<div id="result">Spin the bottle first</div>
 
 <script>
 
 let truths=[
 "What is your biggest fear?",
-"Have you ever lied to your best friend?",
 "Who was your first crush?",
-"What is your biggest secret?",
-"Have you ever cheated in exam?"
+"Have you ever lied to your best friend?",
+"What is your secret dream?"
 ];
 
 let dares=[
-"Sing a song loudly.",
-"Do 10 jumping jacks.",
-"Talk in funny voice for 1 minute.",
-"Send a funny selfie.",
-"Dance for 20 seconds."
+"Sing a song loudly",
+"Do 10 jumping jacks",
+"Dance for 20 seconds",
+"Talk in funny voice for 1 minute"
 ];
+
+function spinBottle(){
+let bottle=document.getElementById("bottle");
+let randomDeg=3600 + Math.floor(Math.random()*360);
+bottle.style.transform="rotate("+randomDeg+"deg)";
+document.getElementById("result").innerText="Bottle stopped! Choose Truth or Dare.";
+}
 
 function getTruth(){
 let random=Math.floor(Math.random()*truths.length);
