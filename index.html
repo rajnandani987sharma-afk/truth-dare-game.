@@ -99,7 +99,7 @@ let dares=[
 "remove 3 clothes",
 "Swap outfits with me",
 "Say yes to everything for the next hour",
-"Have a shower with your clothes on",
+"Have a shower with your clothes off",
 "give me sensual back massage for five minutes",
 "kiss me in a way that makes me laugh and melt at the same time", 
 "go to another room take a Sexy picture and send it to me",
@@ -119,18 +119,24 @@ let dares=[
 "Let me choose where you kiss me next",
 "Share a secret fantasy aloud",
 "Have sex in a new part of the house for the first time",
+"Nipple teasing",
+"Lap sitting",
+"Place your hand on your partner fav part of the body",
+"Celebrate next 10 min as dominant in relationship",
+"Kiss your partner's body from head to toe",
 ];
 
 function spinBottle(){
 
-let extraRotation = 3600 + Math.floor(Math.random()*720);
+let direction = Math.random() < 0.5 ? -1 : 1; // left ya right
+let extraRotation = (3600 + Math.floor(Math.random()*720)) * direction;
 
 currentRotation += extraRotation;
 
-bottle.style.transform="rotate("+currentRotation+"deg)";
+bottle.style.transform = "rotate(" + currentRotation + "deg)";
 
 document.getElementById("result").innerText="Bottle spinning...";
-}
+  }
 
 function getTruth(){
 
